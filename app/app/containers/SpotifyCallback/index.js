@@ -40,6 +40,21 @@ export class SpotifyCallback extends React.Component {
         setSimilarBands(similarBands)
 
         getFestivals(topBands, similarBands).then(festivals => {
+          festivals = festivals.map(festival => {
+            festival.artists = festival.artists.map(artist => {
+              if (topBands.find(band => band.name === artist.name)) {
+                artist.details = topBands.find(band => band.name === artist.name)
+              }
+
+              if (similarBands.find(band => band.name === artist.name)) {
+                artist.details = similarBands.find(band => band.name === artist.name)
+              }
+
+              return artist
+            })
+
+            return festival
+          })
           setFestivals(festivals)
         })
       }).catch(error => {

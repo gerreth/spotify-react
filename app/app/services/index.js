@@ -32,7 +32,18 @@ export function getSimilarBands(token, bands) {
   })
 }
 
-// Get top bands from spotify
+// Play band
+export function playBand(token, uri) {
+  const url = `http://localhost:8001/spotify/play?${querystring.stringify({ token, uri })}`
+
+  return fetch(url, options).then(response => {
+    console.log('play')
+  }).catch(error => {
+    console.log(error.body)
+  });
+}
+
+// Get festivals from songkick
 export function getFestivals(topBands, similarBands) {
   topBands = topBands.reduce((carry, band) => {
     return (carry === '') ? band.name : `${carry}___${band.name}`

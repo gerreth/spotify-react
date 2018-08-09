@@ -30,8 +30,6 @@ const AppWrapper = styled.div`
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   height: 100%;
   margin: 0;
-  overflow: scroll;
-  padding-bottom: 50px;
 
   p {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;

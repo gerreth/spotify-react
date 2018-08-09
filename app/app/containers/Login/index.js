@@ -23,7 +23,7 @@ const LoginWrapper = styled.div`
 
 const SpotifyLoginWrapper = styled.div`
   background: #FFF;
-  border: solid #000 4px;
+  border: solid #000 2px;
   cursor: pointer;
   line-height: 30px;
   margin: -15px -150px 0 0;

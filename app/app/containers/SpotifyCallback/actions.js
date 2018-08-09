@@ -34,7 +34,6 @@ export function setToken(token) {
 }
 
 export function logout() {
-  console.log('logout action')
   return {
     type: LOGOUT,
   };

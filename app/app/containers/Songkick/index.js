@@ -6,52 +6,63 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl';
+import { Helmet } from 'react-helmet';
+import styled from 'styled-components';
 
 import injectReducer from 'utils/injectReducer';
 // Local imports
 import messages from './messages';
-import { spotifyTopBands, spotifySimilarBands, songkickFestivals } from '..//SpotifyCallback/selectors';
+import { spotifyTopBands, spotifySimilarBands, spotifyToken, songkickFestivals } from '..//SpotifyCallback/selectors';
+import { playBand } from '../../services';
 import reducer from '..//SpotifyCallback/reducer';
-// Components
+// Component imports
 import Festivals from 'containers/Festivals';
+// Styled components
+const SongkickWrapper = styled.div`
+  height: 100%;
+  padding-top: 70px;
+`;
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class Songkick extends React.Component {
   render() {
     const {
-      festivals
+      festivals,
+      token
     } = this.props
 
     return (
-      <div>
+      <SongkickWrapper>
         <Helmet>
           <title>Songick</title>
           <meta name="description" content="Description of Songick" />
         </Helmet>
 
         {festivals &&
-          <Festivals festivals={festivals} />
+          <Festivals festivals={festivals} token={token} />
         }
-      </div>
+      </SongkickWrapper>
     );
   }
 }
 
 Songkick.propTypes = {
   festivals: PropTypes.array,
-  topBands: PropTypes.array,
   similarBands: PropTypes.array,
+  topBands: PropTypes.array,
+  token: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   festivals: songkickFestivals(),
   similarBands: spotifySimilarBands(),
   topBands: spotifyTopBands(),
+  token: spotifyToken(),
 });
 
 const withConnect = connect(

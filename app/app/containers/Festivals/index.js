@@ -19,6 +19,7 @@ import Festival from 'containers/Festival/index';
 
 const FestivalsWrapper = styled.div`
   margin: 0 auto;
+  padding-bottom: 100px;
   text-align: center;
   width: 100%;
 `;
@@ -31,16 +32,77 @@ const MonthSeperator = styled.div`
   width: 1200px;
 `;
 
+const LevelSelector = styled.div`
+  align-items: center;
+  background: #FFFFFF;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25em;
+  font-weight: 600;
+  justify-content: center;
+  padding: 20px;
+  position: absolute;
+  width: 76px;
+
+  svg {
+    cursor: pointer;
+
+    :hover {
+
+      g {
+        fill: #FEE837;
+      }
+    }
+  }
+`;
+
 /* eslint-disable react/prefer-stateless-function */
 class Festivals extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const maxCount = props.festivals.reduce((carry, festival) => {
+      const count = festival.artists.reduce((carry, artist) => {
+        return carry + 2*artist.highlight + artist.similar
+      }, 0);
+      return (count > carry) ? count : carry
+    }, 0);
+
+    this.state = {
+      level: 5,
+      maxCount
+    };
+
+    this.increaseLevel = this.increaseLevel.bind(this);
+    this.decreaseLevel = this.decreaseLevel.bind(this);
+  }
+
+  increaseLevel() {
+    this.setState((state, props) => {
+      return { level: state.level < state.maxCount ? state.level + 1 : state.maxCount }
+    });
+  }
+
+  decreaseLevel() {
+    this.setState((state, props) => {
+      return { level: state.level > 2 ? state.level - 1 : 1 }
+    });
+  }
+
   render() {
     const {
-      festivals
-    } = this.props
+      festivals,
+      token
+    } = this.props;
+
+    const {
+      level
+    } = this.state;
 
     let month = '01'
 
-    const FestivalList = festivals.sort(sortByDate).filter(festival => applyThreshold(festival, 5)).map((festival, index) => {
+    const FestivalList = festivals.sort(sortByDate).filter(festival => applyThreshold(festival, level)).map((festival, index) => {
       const currentMonth = getMonth(festival.date.start)
       if (currentMonth !== month) {
         month = currentMonth
@@ -52,6 +114,8 @@ class Festivals extends React.Component {
             date={festival.date}
             name={festival.name}
             location={festival.location}
+            level={level}
+            token={token}
           />
         </React.Fragment>;
       } else {
@@ -61,20 +125,42 @@ class Festivals extends React.Component {
           date={festival.date}
           name={festival.name}
           location={festival.location}
+          level={level}
+          token={token}
         />;
       }
     })
 
     return (
-      <FestivalsWrapper>
-        { FestivalList }
-      </FestivalsWrapper>
+      <React.Fragment>
+        <LevelSelector>
+          <span onClick={this.increaseLevel}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><title>ic_arrow_drop_up_36px</title>
+              <g className="nc-icon-wrapper" fill="#111111">
+                <path d="M10.5 21l7.5-7.5 7.5 7.5z"/>
+              </g>
+            </svg>
+          </span>
+          <span>{ level }</span>
+          <span onClick={this.decreaseLevel}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><title>ic_arrow_drop_down_36px</title>
+              <g className="nc-icon-wrapper" fill="#111111">
+                <path d="M10.5 15l7.5 7.5 7.5-7.5z"/>
+              </g>
+            </svg>
+          </span>
+        </LevelSelector>
+        <FestivalsWrapper>
+          { FestivalList }
+        </FestivalsWrapper>
+      </React.Fragment>
     );
   }
 }
 
 Festivals.propTypes = {
   festivals: PropTypes.array.isRequired,
+  token: PropTypes.string,
 };
 
 export default Festivals;

@@ -34,5 +34,5 @@ export function applyThreshold(festival, threshold) {
     return carry + 2*artist.highlight + artist.similar
   }, 0)
 
-  return count > threshold
+  return count >= threshold
 }

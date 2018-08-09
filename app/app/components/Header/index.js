@@ -22,10 +22,16 @@ import makeSelectSpotifyCallback from '../../containers/SpotifyCallback/selector
 import reducer from '../../containers/SpotifyCallback/reducer';
 // Styled components
 const HeaderWrapper = styled.div`
-  background: #FEE837;
-  border-bottom: solid #000 2px;
+  // background: #FEE837;
+  background: #FFFFFF;
+  // border-bottom: solid #000 2px;
+  box-shadow: 0 -1px 3px rgba(0,0,0,0.25);
   line-height: 30px;
   padding: 20px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 
   a {
     color: #333;

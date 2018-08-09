@@ -79,26 +79,31 @@ class spotifyService {
       const url = `${base_url}&time_range=${time_range}`
 
       return new Promise(resolve => {
-        client.get(url, (error, result) => {
+        // TODO: Better way to cache. Maybe HashSet?
+        console.log(`${url}&token=${token}`)
+        client.get(`${url}&token=${token}`, (error, result) => {
           resolve(result)
         })
       }).then(result => {
         if (result) {
+          console.log('Get top bands from Redis')
           result = JSON.parse(result).items
           return this.convert(result)
         } else {
-          new spotifyApi({ token, url }).request().then((body) => {
-            client.set(url, JSON.stringify(body))
-            client.expire(url, 24*60*60)
+          console.log('Get top bands from API')
+          return new spotifyApi({ token, url }).request().then((body) => {
+            // TODO: Better way to cache. Maybe HashSet?
+            client.set(`${url}&token=${token}`, JSON.stringify(body))
+            client.expire(`${url}&token=${token}`, 24*60*60)
 
-
-            result = JSON.parse(body).items
-            return this.convert(result)
+            return this.convert(body.items)
           }).catch(error => {
+            console.log(error)
             return {}
           })
         }
       }).catch(error => {
+        console.log(error)
         return {}
       })
     })
@@ -108,6 +113,8 @@ class spotifyService {
         if (!carry.filter(_ => _.name === band.name).length) carry.push(band)
         return carry
       }, [])
+
+      console.log('results.length ', results.length)
 
       return results
     })

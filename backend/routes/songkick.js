@@ -3,11 +3,17 @@ import express from 'express'
 import songkickService from '../services/songkickService'
 
 const router = express.Router()
-// GET home page
+
+/*
+ * Home route
+ */
 router.get('/', (req, res) => {
   res.send('respond with a resource')
 })
 
+/*
+ * Get festivals
+ */
 router.get('/festivals', (req, res) => {
   const topBands = req.query.topBands.split('___')
   const similarBands = req.query.similarBands.split('___')
