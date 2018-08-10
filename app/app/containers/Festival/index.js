@@ -10,14 +10,18 @@ import styled from 'styled-components';
 
 import { playBand } from '../../services';
 
+import Band from 'components/Band';
+import BandHighlight from 'components/BandHighlight';
+import BandSimilar from 'components/BandSimilar';
+
+import {
+  formatDate
+} from './helper';
+
 const FestivalWrapper = styled.div`
   line-height: 1.4;
   margin: 50px auto 0;
   width: 800px;
-
-  &.hide {
-    display: none;
-  }
 `;
 
 const HeaderWrapper = styled.div`
@@ -31,18 +35,6 @@ const BandsWrapper = styled.div`
 const headlineStyle = {
   fontSize: '1.5em',
   padding: '6px',
-};
-
-const highlightStyle = {
-  background: '#FEE837',
-  cursor: 'pointer',
-  fontSize: '1.1em',
-  fontWeight: 600,
-};
-
-const similarStyle = {
-  background: '#FEE837',
-  cursor: 'pointer',
 };
 
 const spanStyle = {
@@ -62,21 +54,8 @@ const dateStyle = {
 
 /* eslint-disable react/prefer-stateless-function */
 class Festival extends React.Component {
-  formatDate(date) {
-    const newDate = date.split('-')
-    return [newDate[2],newDate[1],newDate[0]].join('.')
-  }
-
   constructor(props) {
     super(props);
-
-    // this.toggle = this.toggle.bind(this);
-  }
-
-  toggle(token, uri) {
-    if (uri !== null) {
-      playBand(token, uri)
-    }
   }
 
   render() {
@@ -93,28 +72,24 @@ class Festival extends React.Component {
       return carry + 2*artist.highlight + artist.similar
     }, 0)
 
-
     const bands = artists && artists.map((artist, index) => {
-      const seperator = (index === artists.length-1) ? '' : ', '
       if (artist.highlight) {
-        return <React.Fragment><span onClick={() => this.toggle(token, artist.details.uri)} key={index} style={{ ...highlightStyle, ...spanStyle }}>{artist.name}</span>{ seperator } </React.Fragment>
+        return <BandHighlight key={index} name={artist.name} onClick={() => playBand(token, artist.details.uri)} seperator={index !== artists.length-1} />
       } else if (artist.similar) {
-        return <React.Fragment><span onClick={() => this.toggle(token, artist.details.uri)} key={index} style={{ ...similarStyle, ...spanStyle }}>{artist.name}</span>{ seperator } </React.Fragment>
+        return <BandSimilar key={index} name={artist.name} onClick={() => playBand(token, artist.details.uri)} seperator={index !== artists.length-1} />
       } else {
-        return <React.Fragment><span onClick={() => this.toggle(token, null)} key={index} style={ spanStyle }>{artist.name}</span>{ seperator } </React.Fragment>
+        return <Band key={index} name={artist.name} seperator={index !== artists.length-1} />
       }
     })
 
-    const className = count < level ? 'hide' : ''; // does not work so far, filtering needs to be done, since months seperator would not be correct otherwise
-
     return (
-      <FestivalWrapper className={className}>
+      <FestivalWrapper>
         <HeaderWrapper>
           <div>
             <span style={ locationStyle }>{location}</span>
           </div>
           <div>
-            <span style={ dateStyle }>{this.formatDate(date.start)} - {this.formatDate(date.end)}</span>
+            <span style={ dateStyle }>{formatDate(date.start)} - {formatDate(date.end)}</span>
           </div>
           <h3 style={ headlineStyle }>{name}</h3>
         </HeaderWrapper>
@@ -130,7 +105,7 @@ class Festival extends React.Component {
 Festival.propTypes = {
   artists: PropTypes.array,
   date: PropTypes.object,
-  level: PropTypes.string,
+  level: PropTypes.number,
   location: PropTypes.string,
   name: PropTypes.string,
   token: PropTypes.string,

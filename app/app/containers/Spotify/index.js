@@ -16,8 +16,8 @@ import styled from 'styled-components';
 import injectReducer from 'utils/injectReducer';
 // Local imports
 import messages from './messages';
-import { spotifyTopBands, spotifySimilarBands, songkickFestivals } from '..//SpotifyCallback/selectors';
-import reducer from '..//SpotifyCallback/reducer';
+import { spotifyTopBands, spotifySimilarBands, spotifyToken, songkickFestivals } from '../SpotifyCallback/selectors';
+import reducer from '../SpotifyCallback/reducer';
 
 import Bands from 'containers/Bands';
 // Styled components
@@ -29,6 +29,10 @@ const SpotifyWrapper = styled.div`
 /* eslint-disable react/prefer-stateless-function */
 export class Spotify extends React.Component {
   render() {
+    const {
+      token
+    } = this.props
+
     return (
       <SpotifyWrapper>
         <Helmet>
@@ -37,7 +41,7 @@ export class Spotify extends React.Component {
         </Helmet>
 
         {this.props.topBands &&
-          <Bands topBands={this.props.topBands} />
+          <Bands topBands={this.props.topBands} token={token} />
         }
       </SpotifyWrapper>
     );
@@ -47,10 +51,12 @@ export class Spotify extends React.Component {
 Spotify.propTypes = {
   topBands: PropTypes.array,
   similarBands: PropTypes.array,
+  token: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   similarBands: spotifySimilarBands(),
+  token: spotifyToken(),
   topBands: spotifyTopBands(),
 });
 
@@ -64,24 +70,3 @@ export default compose(
   withReducer,
   withConnect,
 )(Spotify);
-
-// Spotify.propTypes = {
-//   similarBands: PropTypes.array,
-//   topBands: PropTypes.array,
-// };
-//
-// const mapStateToProps = createStructuredSelector({
-//   topBands: spotifyTopBands(),
-//   similarBands: spotifySimilarBands(),
-// });
-//
-// const withConnect = connect(
-//   mapStateToProps,
-// );
-//
-// const withReducer = injectReducer({ key: 'data', reducer });
-//
-// export default compose(
-//   withReducer,
-//   withConnect,
-// )(Spotify);

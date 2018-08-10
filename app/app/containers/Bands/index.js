@@ -67,17 +67,19 @@ class Bands extends React.Component {
 
   render() {
     const {
+      token,
       topBands
     } = this.props
 
     const bands = topBands && topBands.map((band, index) => {
       return <Band
+        uri={band.uri}
         genres={band.genres}
         image={band.image}
         key={band.id}
         name={band.name}
-        timeout={index}
         size={this.state.size}
+        token={token}
       />;
     })
 
@@ -88,7 +90,7 @@ class Bands extends React.Component {
           {this.state.size === 10 &&
             <span onClick={this.increaseSize}>
               <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><title>ic_arrow_drop_up_36px</title>
-                <g class="nc-icon-wrapper" fill="#111111">
+                <g className="nc-icon-wrapper" fill="#111111">
                   <path d="M10.5 21l7.5-7.5 7.5 7.5z"/>
                 </g>
               </svg>
@@ -98,7 +100,7 @@ class Bands extends React.Component {
           {this.state.size === 20 &&
             <span onClick={this.decreaseSize}>
               <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><title>ic_arrow_drop_down_36px</title>
-                <g class="nc-icon-wrapper" fill="#111111">
+                <g className="nc-icon-wrapper" fill="#111111">
                   <path d="M10.5 15l7.5 7.5 7.5-7.5z"/>
                 </g>
               </svg>
@@ -106,13 +108,13 @@ class Bands extends React.Component {
           }
         </Resizer>
       </BandsWrapper>
-
     );
   }
 }
 
 Bands.propTypes = {
-  topBands: PropTypes.object.isRequired,
+  token: PropTypes.string,
+  topBands: PropTypes.array.isRequired,
 };
 
 export default Bands;

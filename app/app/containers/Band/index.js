@@ -8,14 +8,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { playBand } from '../../services';
+
 const BandWrapper = styled.div`
   position: relative;
-  transition: all 100ms ease-in;
   width: 10%;
-
-  &.hide {
-    opacity: 0;
-  }
 
   :before {
   	content: "";
@@ -60,41 +57,18 @@ const BandImage = styled.div`
 
 /* eslint-disable react/prefer-stateless-function */
 class Band extends React.Component {
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      hide: true,
-    }
-  }
-
-  componentDidMount() {
-    const {
-      timeout,
-    } = this.props
-
-    const that = this
-
-    setTimeout(function(){
-      that.setState((state, props) => {
-        return { hide: false }
-      });
-    }, timeout*20);
-  }
-
   render() {
     const {
       image,
       name,
-      timeout,
+      uri,
+      token,
     } = this.props
 
-    const className = this.state.hide ? 'hide' : '';
     const styles = { width: `${this.props.size}%` }
 
     return (
-      <BandWrapper className={className} style={styles}>
+      <BandWrapper style={styles} onClick={() => playBand(token, uri)}>
         <BandInnerWrapper>
           <BandName>
             <span>{name}</span>
@@ -109,11 +83,11 @@ class Band extends React.Component {
 }
 
 Band.propTypes = {
-  key: PropTypes.string,
   image: PropTypes.string,
   name: PropTypes.string.isRequired,
   size: PropTypes.number,
-  timeout: PropTypes.number,
+  token: PropTypes.string,
+  uri: PropTypes.string,
 };
 
 export default Band;

@@ -72,7 +72,8 @@ class spotifyService {
     } = this
 
     const base_url = 'https://api.spotify.com/v1/me/top/artists?limit=50&offset=0'
-    const time_ranges = ['short_term', 'medium_term', 'long_term']
+    // const time_ranges = ['short_term', 'medium_term', 'long_term']
+    const time_ranges = ['medium_term', 'long_term']
 
     // Create promises for all time ranges
     const promises = time_ranges.map(time_range => {
@@ -109,7 +110,8 @@ class spotifyService {
     })
 
     return Promise.all(promises).then(results => {
-      results = [...results[0], ...results[1], ...results[2]].reduce((carry, band) => {
+      // results = [...results[0], ...results[1], ...results[2]].reduce((carry, band) => {
+      results = [...results[0], ...results[1]].reduce((carry, band) => {
         if (!carry.filter(_ => _.name === band.name).length) carry.push(band)
         return carry
       }, [])
