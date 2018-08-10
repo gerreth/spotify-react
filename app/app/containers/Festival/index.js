@@ -37,10 +37,6 @@ const headlineStyle = {
   padding: '6px',
 };
 
-const spanStyle = {
-
-}
-
 const locationStyle = {
   color: '#999',
   fontSize: '.8em',
@@ -67,10 +63,6 @@ class Festival extends React.Component {
       name,
       token,
     } = this.props
-
-    const count = artists.reduce((carry, artist) => {
-      return carry + 2*artist.highlight + artist.similar
-    }, 0)
 
     const bands = artists && artists.map((artist, index) => {
       if (artist.highlight) {

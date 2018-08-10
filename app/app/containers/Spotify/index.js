@@ -30,7 +30,8 @@ const SpotifyWrapper = styled.div`
 export class Spotify extends React.Component {
   render() {
     const {
-      token
+      token,
+      topBands,
     } = this.props
 
     return (
@@ -40,8 +41,8 @@ export class Spotify extends React.Component {
           <meta name="description" content="Description of Spotify" />
         </Helmet>
 
-        {this.props.topBands &&
-          <Bands topBands={this.props.topBands} token={token} />
+        {topBands &&
+          <Bands topBands={topBands} token={token} />
         }
       </SpotifyWrapper>
     );

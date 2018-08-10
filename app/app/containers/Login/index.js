@@ -62,7 +62,7 @@ export default class Login extends React.Component {
       redirect_uri: 'http://localhost:8000/spotify/callback', // Your redirect uri
       response_type: 'token',
       scope: 'user-read-private user-read-email user-top-read user-modify-playback-state user-read-playback-state playlist-modify-public playlist-modify-private',
-      show_dialog: false,
+      show_dialog: true,
     }
     const url = `https://accounts.spotify.com/authorize?${querystring.stringify(config)}`
     window.location.href = url;
