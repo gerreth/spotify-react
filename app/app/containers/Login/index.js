@@ -4,56 +4,27 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
-import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
-
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+import { FormattedMessage } from 'react-intl'
+import { Helmet } from 'react-helmet'
 import querystring from 'querystring'
 
-// Styled components
-const LoginWrapper = styled.div`
-  height: 100%;
-`;
-
-const SpotifyLoginWrapper = styled.div`
-  background: #FFF;
-  border: solid #000 2px;
-  cursor: pointer;
-  line-height: 30px;
-  margin: -15px -150px 0 0;
-  padding: 10px 20px;
-  position: absolute;
-  right: 50%;
-  text-align: center;
-  top: 50%;
-  width: 260px;
-
-  &:hover {
-    background: #FEE837;
-  }
-
-  a {
-    color: #333;
-    font-weight: 600;
-    padding: 0 10px;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-`;
-
+import {
+  LoginWrapper,
+  SpotifyLoginWrapper,
+} from './styled'
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Login extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.spotifyLogin = this.spotifyLogin.bind(this);
+    this.spotifyLogin = this.spotifyLogin.bind(this)
   }
 
   spotifyLogin() {
@@ -65,7 +36,7 @@ export default class Login extends React.Component {
       show_dialog: true,
     }
     const url = `https://accounts.spotify.com/authorize?${querystring.stringify(config)}`
-    window.location.href = url;
+    window.location.href = url
   }
 
   render() {
@@ -80,6 +51,6 @@ export default class Login extends React.Component {
           <a>Log in with spotify</a>
         </SpotifyLoginWrapper>
       </LoginWrapper>
-    );
+    )
   }
 }

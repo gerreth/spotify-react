@@ -22,8 +22,7 @@ import reducer from '../SpotifyCallback/reducer';
 import Bands from 'containers/Bands';
 // Styled components
 const SpotifyWrapper = styled.div`
-  height: 100%;
-  padding-top: 70px;
+
 `;
 
 /* eslint-disable react/prefer-stateless-function */

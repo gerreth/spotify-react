@@ -1,33 +1,53 @@
 /**
  *
- * Header
+ * Band
  *
  */
 
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
+// Styles
+import './style.css'
 
-/* eslint-disable react/prefer-stateless-function */
-export default class Band extends React.Component {
-  render() {
-    const {
-      name,
-      seperator,
-      style
-    } = this.props
+const Band = (props) => {
+  const {
+    name,
+    last,
+    type,
+  } = props
 
-    return (
-      <React.Fragment>
-        <span style={style}>
-          {name}
-        </span>{seperator && <i>, </i>}
-      </React.Fragment>
-    );
-  }
-}
+  const seperator = last ? ', ' : ''
 
-Band.propTypes = {
-  name: PropTypes.string,
-  seperator: PropTypes.bool,
-  style: PropTypes.object,
+  return (
+    <React.Fragment>
+      <span className={type}>{name}</span>{seperator}
+    </React.Fragment>
+  )
 };
+
+export default Band
+
+// /* eslint-disable react/prefer-stateless-function */
+// export default class Band extends React.Component {
+//   render() {
+//     const {
+//       name,
+//       last,
+//       type,
+//     } = this.props
+//
+//     const seperator = last ? ', ' : ''
+//
+//     return (
+//      <React.Fragment>
+//        <span className={type}>{name}</span>{seperator}
+//      </React.Fragment>
+//     )
+//   }
+// }
+//
+// Band.propTypes = {
+//   name: PropTypes.string,
+//   last: PropTypes.bool,
+//   type: PropTypes.string,
+// }

@@ -26,6 +26,7 @@ class songkickTopFestivals {
     festival.artists = festival.artists.map(name => {
       const highlight = topBands.indexOf(name) > -1
       const similar = similarBands.indexOf(name) > -1
+      const type = highlight ? 'highlight' : similar ? 'similar' : 'none'
 
       if (highlight) {
         festival.highlight = true
@@ -37,8 +38,9 @@ class songkickTopFestivals {
 
       return {
         name,
-        highlight,
-        similar,
+        type,
+        highlight, // needed to calculate count in Festivals component
+        similar, // needed to calculate count in Festivals component
       }
     })
 

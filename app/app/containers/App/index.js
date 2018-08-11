@@ -11,44 +11,36 @@
  * the linting exception.
  */
 
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
 
-import styled from 'styled-components';
 // Project imports
-import Header from 'components/Header';
+import Header from 'containers/Header'
+import HomePage from 'containers/HomePage/Loadable'
+import Login from 'containers/Login/Loadable'
+import Logout from 'containers/Logout'
+import Songkick from 'containers/Songkick/Loadable'
+import Spotify from 'containers/Spotify/Loadable'
+import SpotifyCallback from 'containers/SpotifyCallback'
+import NotFoundPage from 'containers/NotFoundPage/Loadable'
 
-import HomePage from 'containers/HomePage/Loadable';
-import Login from 'containers/Login/Loadable';
-import Logout from 'containers/Logout';
-import Songkick from 'containers/Songkick/Loadable';
-import Spotify from 'containers/Spotify/Loadable';
-import SpotifyCallback from 'containers/SpotifyCallback';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-
-const AppWrapper = styled.div`
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  height: 100%;
-  margin: 0;
-
-  p {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  }
-`;
+import { AppWrapper, ContentWrapper } from './styled'
 
 export default function App() {
   return (
     <AppWrapper>
       <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/logout" component={Logout} />
-        <Route exact path="/songkick" component={Songkick} />
-        <Route exact path="/spotify/callback" component={SpotifyCallback} />
-        <Route exact path="/spotify" component={Spotify} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <ContentWrapper>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/logout" component={Logout} />
+          <Route exact path="/songkick" component={Songkick} />
+          <Route exact path="/spotify/callback" component={SpotifyCallback} />
+          <Route exact path="/spotify" component={Spotify} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </ContentWrapper>
     </AppWrapper>
-  );
+  )
 }

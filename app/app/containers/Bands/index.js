@@ -4,65 +4,39 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-const BandsWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
+import Band from 'containers/Band/index'
 
-const Resizer = styled.div`
-  align-items: center;
-  background: #FFFFFF;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  font-size: 1.25em;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 30px;
-  position: absolute;
-  width: 60px;
-
-  svg {
-    cursor: pointer;
-
-    :hover {
-
-      g {
-        fill: #FEE837;
-      }
-    }
-  }
-`;
-
-import Band from 'containers/Band/index';
+import {
+  BandsWrapper,
+  Resizer,
+} from './styled'
 
 /* eslint-disable react/prefer-stateless-function */
 class Bands extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       size: 20
-    };
+    }
 
-    this.increaseSize = this.increaseSize.bind(this);
-    this.decreaseSize = this.decreaseSize.bind(this);
+    this.increaseSize = this.increaseSize.bind(this)
+    this.decreaseSize = this.decreaseSize.bind(this)
   }
 
   increaseSize() {
     this.setState((state, props) => {
       return { size: 20 }
-    });
+    })
   }
 
   decreaseSize() {
     this.setState((state, props) => {
       return { size: 10 }
-    });
+    })
   }
 
   render() {
@@ -80,7 +54,7 @@ class Bands extends React.Component {
         name={band.name}
         size={this.state.size}
         token={token}
-      />;
+      />
     })
 
     return (
@@ -108,13 +82,13 @@ class Bands extends React.Component {
           }
         </Resizer>
       </BandsWrapper>
-    );
+    )
   }
 }
 
 Bands.propTypes = {
   token: PropTypes.string,
   topBands: PropTypes.array.isRequired,
-};
+}
 
-export default Bands;
+export default Bands

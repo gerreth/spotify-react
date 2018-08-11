@@ -9,17 +9,52 @@ class songkickApi {
     this.type = 'festival'
 
     this.cities = {
+      Amsterdam: '31366',
       Barcelona: '28714',
       Berlin: '28443',
       Budapest: '29047',
+      Eindhoven: '31380',
       Hamburg: '28498',
       Lissabon: '31802',
       London: '24426',
       Madrid: '28755',
       Manchester: '24475',
       Matlock: '24517',
+      Nantes: '28901',
       Paris: '28909',
       SaintMalo: '28922',
+    }
+
+    this.countries = {
+      DE: {
+        Berlin: '28443',
+        Hamburg: '28498',
+      },
+      ES: {
+        Barcelona: '28714',
+        Madrid: '28755',
+      },
+      FR: {
+        Nantes: '28901',
+        Paris: '28909',
+        SaintMalo: '28922',
+      },
+      HU: {
+        Budapest: '29047',
+      },
+      NL: {
+        Amsterdam: '31366',
+        Eindhoven: '31380',
+      },
+      PT: {
+        Lissabon: '31802',
+        Porto: '',
+      },
+      UK: {
+        London: '24426',
+        Leeds: '',
+        Manchester: '24475',
+      },
     }
 
     this.api_key = 'VNvgkjz2uCB5y2G6'

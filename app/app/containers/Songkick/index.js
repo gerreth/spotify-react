@@ -16,17 +16,15 @@ import styled from 'styled-components';
 import injectReducer from 'utils/injectReducer';
 // Local imports
 import messages from './messages';
-import { spotifyTopBands, spotifySimilarBands, spotifyToken, songkickFestivals } from '..//SpotifyCallback/selectors';
+import { spotifyTopBands, spotifySimilarBands, spotifyToken, songkickFestivals } from '../SpotifyCallback/selectors';
 import { playBand } from '../../services';
-import reducer from '..//SpotifyCallback/reducer';
+import reducer from '../SpotifyCallback/reducer';
 // Component imports
 import Festivals from 'containers/Festivals';
 // Styled components
 const SongkickWrapper = styled.div`
-  height: 100%;
-  padding-top: 70px;
-`;
 
+`;
 
 /* eslint-disable react/prefer-stateless-function */
 export class Songkick extends React.Component {

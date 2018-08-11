@@ -4,54 +4,30 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { playBand } from '../../services';
+import { playBand } from '../../services'
 
-import Band from 'components/Band';
-import BandHighlight from 'components/BandHighlight';
-import BandSimilar from 'components/BandSimilar';
+import Band from 'components/Band'
 
 import {
   formatDate
-} from './helper';
+} from './helper'
 
-const FestivalWrapper = styled.div`
-  line-height: 1.4;
-  margin: 50px auto 0;
-  width: 800px;
-`;
-
-const HeaderWrapper = styled.div`
-
-`;
-
-const BandsWrapper = styled.div`
-  line-height: 1.75;
-`;
-
-const headlineStyle = {
-  fontSize: '1.5em',
-  padding: '6px',
-};
-
-const locationStyle = {
-  color: '#999',
-  fontSize: '.8em',
-  fontWeight: 600,
-}
-
-const dateStyle = {
-  color: '#999',
-  fontSize: '.8em',
-}
+import {
+  FestivalBands,
+  FestivalDate,
+  FestivalHeader,
+  FestivalHeadline,
+  FestivalLocation,
+  FestivalWrapper,
+} from './styled'
 
 /* eslint-disable react/prefer-stateless-function */
 class Festival extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
@@ -64,33 +40,32 @@ class Festival extends React.Component {
       token,
     } = this.props
 
-    const bands = artists && artists.map((artist, index) => {
-      if (artist.highlight) {
-        return <BandHighlight key={index} name={artist.name} onClick={() => playBand(token, artist.details.uri)} seperator={index !== artists.length-1} />
-      } else if (artist.similar) {
-        return <BandSimilar key={index} name={artist.name} onClick={() => playBand(token, artist.details.uri)} seperator={index !== artists.length-1} />
-      } else {
-        return <Band key={index} name={artist.name} seperator={index !== artists.length-1} />
-      }
-    })
+    const bands = artists && artists.map((artist, index) =>
+      <Band
+        key={index}
+        last={index !== artists.length-1}
+        name={artist.name}
+        type={artist.type}
+      />
+    )
 
     return (
       <FestivalWrapper>
-        <HeaderWrapper>
-          <div>
-            <span style={ locationStyle }>{location}</span>
-          </div>
-          <div>
-            <span style={ dateStyle }>{formatDate(date.start)} - {formatDate(date.end)}</span>
-          </div>
-          <h3 style={ headlineStyle }>{name}</h3>
-        </HeaderWrapper>
+        <FestivalHeader>
+          <FestivalLocation>
+            <span>{location}</span>
+          </FestivalLocation>
+          <FestivalDate>
+            <span>{formatDate(date.start)} - {formatDate(date.end)}</span>
+          </FestivalDate>
+          <FestivalHeadline>{name}</FestivalHeadline>
+        </FestivalHeader>
 
-        <BandsWrapper>
+        <FestivalBands>
           { bands }
-        </BandsWrapper>
+        </FestivalBands>
       </FestivalWrapper>
-    );
+    )
   }
 }
 
@@ -101,6 +76,6 @@ Festival.propTypes = {
   location: PropTypes.string,
   name: PropTypes.string,
   token: PropTypes.string,
-};
+}
 
-export default Festival;
+export default Festival
