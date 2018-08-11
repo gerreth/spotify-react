@@ -4,8 +4,8 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.div`
   background: #FFFFFF;
   box-shadow: 0 -1px 3px rgba(0,0,0,0.25);
-  line-height: 30px;
-  padding: 20px;
+  line-height: 36px;
+  padding: 18px;
   position: absolute;
   top: 0;
   width: 100%;

@@ -15,27 +15,40 @@ export const MonthSeperator = styled.div`
   width: 1200px;
 `;
 
-export const LevelSelector = styled.div`
-  align-items: center;
-  background: #FFFFFF;
-  bottom: 0;
+export const Filter = styled.div`
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
-  font-size: 1.25em;
-  font-weight: 600;
-  justify-content: center;
-  padding: 20px;
-  position: absolute;
-  width: 76px;
+  font-size: .8em;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 9px 18px;
+  position: fixed;
+  bottom: 0;
+  user-select: none;
+  width: 100%;
+  transition: all 0.2s;
 
-  svg {
-    cursor: pointer;
+  .filter {
+    background: #FFFFFF;
+  }
 
-    :hover {
+  &.active {
+    background: #FEE837;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
 
-      g {
-        fill: #FEE837;
-      }
+    .filterWrapper {
+      opacity: 1;
+    }
+  }
+
+  .filterWrapper {
+    display: flex;
+    height: 36px;
+    opacity: 0;
+    transition: all 0.1s;
+
+    .filter-label {
+      padding: 0 0 0 36px;
     }
   }
 `;

@@ -53,7 +53,7 @@ class Festival extends React.Component {
       <FestivalWrapper>
         <FestivalHeader>
           <FestivalLocation>
-            <span>{location}</span>
+            <span>{location.city}, {location.country}</span>
           </FestivalLocation>
           <FestivalDate>
             <span>{formatDate(date.start)} - {formatDate(date.end)}</span>

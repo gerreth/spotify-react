@@ -163,7 +163,12 @@ class songkickApi {
             start: festival.start.date,
             end: festival.end.date,
           }
-          result.location = festival.location.city
+
+          const location = festival.location.city.split(',')
+
+          result.location = {}
+          result.location.city = location[0]
+          result.location.country = location[1]
           // If duplicate found, merge artists
           result.artists = (exists.length > 0) ? [...exists[0].artists, ...festival.performance.map(artist => artist.displayName)] : festival.performance.map(artist => artist.displayName)
 

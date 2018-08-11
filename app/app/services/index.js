@@ -34,6 +34,7 @@ export function getSimilarBands(token, bands) {
 
 // Play band
 export function playBand(token, uri) {
+  console.log(uri)
   const url = `http://localhost:8001/spotify/play?${querystring.stringify({ token, uri })}`
 
   return fetch(url, options).then(response => {

@@ -15,12 +15,13 @@ import {
   sortByDate,
 } from './helper'
 
+import Icon from 'components/Icon/index'
 import Festival from 'containers/Festival/index'
 
 import {
   FestivalsWrapper,
+  Filter,
   MonthSeperator,
-  LevelSelector,
 } from './styled'
 
 /* eslint-disable react/prefer-stateless-function */
@@ -36,6 +37,9 @@ class Festivals extends React.Component {
     }, 0);
 
     this.state = {
+      countrySelect: false,
+      filter: false,
+      hiddenCountries: [],
       level: 5,
       maxCount
     };
@@ -56,6 +60,33 @@ class Festivals extends React.Component {
     });
   }
 
+  toggle() {
+    this.setState((state, props) => {
+      return { filter: !state.filter }
+    });
+  }
+
+  toggleCountrySelect() {
+    this.setState((state, props) => {
+      return { countrySelect: !state.countrySelect }
+    });
+  }
+
+  toggleCountry(country) {
+    const { hiddenCountries } = this.state
+    const index = hiddenCountries.indexOf(country)
+
+    if (index === -1) {
+      hiddenCountries.push(country)
+    } else {
+      hiddenCountries.splice(index, 1)
+    }
+
+    this.setState((state, props) => {
+      return { hiddenCountries }
+    });
+  }
+
   render() {
     const {
       festivals,
@@ -63,18 +94,52 @@ class Festivals extends React.Component {
     } = this.props;
 
     const {
-      level
+      countrySelect,
+      hiddenCountries,
+      level,
     } = this.state;
 
     let month = '01'
 
-    const FestivalList = festivals.sort(sortByDate).filter(festival => applyThreshold(festival, level)).map((festival, index) => {
-      const currentMonth = getMonth(festival.date.start)
-      if (currentMonth !== month) {
-        month = currentMonth
-        return <React.Fragment key={`Fragment_${index}`}>
-          <MonthSeperator key={`MonthSeperator_${month}`}>{getMonthName(month)}</MonthSeperator>
-          <Festival
+    const countries = festivals.filter(festival => applyThreshold(festival, level)).reduce((countries, festival) => {
+      if (countries.indexOf(festival.location.country) === -1) countries.push(festival.location.country)
+      return countries
+    }, [])
+
+    const countriesSelect = countries.map(country => {
+      const count = festivals
+        .filter(festival => applyThreshold(festival, level))
+        .reduce((count, festival) => {
+          return festival.location.country === country ? count+1 : count
+        }, 0)
+      if (hiddenCountries.indexOf(country) === -1) {
+        return <p style={{ border: 'solid #FEE839 4px', fontSize: '1em', marginTop: '-4px', padding: '9px 9px' }} onClick={this.toggleCountry.bind(this, country)}>{country} ({count})</p>
+      } else {
+        return <p style={{ background: '#FEE837', border: 'solid #FEE839 4px', fontSize: '1em', marginTop: '-4px', padding: '9px 9px', textDecoration: 'line-through' }} onClick={this.toggleCountry.bind(this, country)}>{country} ({count})</p>
+      }
+    })
+
+    const FestivalList = festivals.sort(sortByDate)
+      .filter(festival => hiddenCountries.indexOf(festival.location.country) === -1)
+      .filter(festival => applyThreshold(festival, level))
+      .map((festival, index) => {
+        const currentMonth = getMonth(festival.date.start)
+        if (currentMonth !== month) {
+          month = currentMonth
+          return <React.Fragment key={`Fragment_${index}`}>
+            <MonthSeperator key={`MonthSeperator_${month}`}>{getMonthName(month)}</MonthSeperator>
+            <Festival
+              key={index}
+              artists={festival.artists}
+              date={festival.date}
+              name={festival.name}
+              location={festival.location}
+              level={level}
+              token={token}
+            />
+          </React.Fragment>;
+        } else {
+          return <Festival
             key={index}
             artists={festival.artists}
             date={festival.date}
@@ -82,40 +147,38 @@ class Festivals extends React.Component {
             location={festival.location}
             level={level}
             token={token}
-          />
-        </React.Fragment>;
-      } else {
-        return <Festival
-          key={index}
-          artists={festival.artists}
-          date={festival.date}
-          name={festival.name}
-          location={festival.location}
-          level={level}
-          token={token}
-        />;
-      }
-    })
+          />;
+        }
+      })
+
+    const filter = this.state.filter ? "active" : ""
 
     return (
       <React.Fragment>
-        <LevelSelector>
-          <span onClick={this.increaseLevel}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><title>ic_arrow_drop_up_36px</title>
-              <g className="nc-icon-wrapper" fill="#111111">
-                <path d="M10.5 21l7.5-7.5 7.5 7.5z"/>
-              </g>
-            </svg>
-          </span>
-          <span>{ level }</span>
-          <span onClick={this.decreaseLevel}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><title>ic_arrow_drop_down_36px</title>
-              <g className="nc-icon-wrapper" fill="#111111">
-                <path d="M10.5 15l7.5 7.5 7.5-7.5z"/>
-              </g>
-            </svg>
-          </span>
-        </LevelSelector>
+        <Filter className={filter}>
+          <Icon style={{ background: '#FFFFFF' }} type="filter" onClick={this.toggle.bind(this)} />
+          <div className="filterWrapper">
+            <div className="filter-label">
+              <span style={{ display: 'inline-block', lineHeight: '36px', padding: '0 9px' }}>Min Matches:</span>
+              <span className="filter" style={{ display: 'inline-block' }}>
+                <Icon type="arrow-left" onClick={this.decreaseLevel.bind(this)} />
+                <span style={{ display: 'inline-block', padding: '0 9px' }}>{ level }</span>
+                <Icon type="arrow-right" onClick={this.increaseLevel.bind(this)} />
+              </span>
+            </div>
+            <div className="filter-label">
+              <span style={{ display: 'inline-block', lineHeight: '36px', padding: '0 9px' }}>Countries:</span>
+              <div className="filter" style={{ display: 'inline-block', position: 'relative', width: '150px' }}>
+                <span style={{ background: '#FFFFFF', border: 'solid #FEE839 2px', marginTop: '-2px', display: 'inline-block', padding: '0 9px', width: '150px' }} onClick={this.toggleCountrySelect.bind(this)}>Select</span>
+                {countrySelect &&
+                  <div style={{ background: '#FFFFFF', position: 'absolute', bottom: '36px', left: '0px', width: '150px' }}>
+                    {countriesSelect}
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </Filter>
         <FestivalsWrapper>
           { FestivalList }
         </FestivalsWrapper>
