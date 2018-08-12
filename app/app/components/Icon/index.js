@@ -10,9 +10,12 @@ import React from 'react'
 const Icon = (props) => {
   const {
     onClick,
-    style,
     type,
   } = props
+
+  const style = {
+    background: '#FFFFFF'
+  }
 
   switch (type) {
     case 'filter': return <svg style={style} onClick={onClick} xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><title>ic_arrow_drop_up_36px</title>

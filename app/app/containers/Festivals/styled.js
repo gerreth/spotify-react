@@ -10,7 +10,6 @@ export const FestivalsWrapper = styled.div`
 export const MonthSeperator = styled.div`
   font-size: 2.5em;
   margin: 50px auto 0;
-  padding: 50px 0;
   text-transform: uppercase;
   width: 1200px;
 `;

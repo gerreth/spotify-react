@@ -20,7 +20,7 @@ const Band = (props) => {
 
   return (
     <React.Fragment>
-      <span className={type}>{name}</span>{seperator}
+      <span className={`band ${type}`}>{name}</span>{seperator}
     </React.Fragment>
   )
 };

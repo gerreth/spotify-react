@@ -34,6 +34,13 @@ export class Songkick extends React.Component {
       token
     } = this.props
 
+    const maxCount = festivals.reduce((carry, festival) => {
+      const count = festival.artists.reduce((carry, artist) => {
+        return carry + 2*artist.highlight + artist.similar
+      }, 0);
+      return (count > carry) ? count : carry
+    }, 0);
+
     return (
       <SongkickWrapper>
         <Helmet>
@@ -42,7 +49,7 @@ export class Songkick extends React.Component {
         </Helmet>
 
         {festivals &&
-          <Festivals festivals={festivals} token={token} />
+          <Festivals festivals={festivals} maxCount={maxCount} token={token} />
         }
       </SongkickWrapper>
     );
