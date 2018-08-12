@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { FormattedMessage } from 'react-intl'
 import injectReducer from 'utils/injectReducer'
+import { Link } from 'react-router-dom';
 import messages from './messages'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -54,6 +55,11 @@ const FestivalDate = styled.div`
 const FestivalBands = styled.div`
   font-size: .8em;
   line-height: 1.75;
+
+  a {
+    color: #666;
+    text-decoration: none;
+  }
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -112,7 +118,7 @@ class HomePage extends React.Component {
                   }
                 })}
 
-                ...mehr
+                <Link to={`/songkick/${festival.path}`}>...mehr</Link>
               </FestivalBands>
             </div>
           )

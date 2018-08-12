@@ -20,6 +20,7 @@ import HomePage from 'containers/HomePage/Loadable'
 import Login from 'containers/Login/Loadable'
 import Logout from 'containers/Logout'
 import Songkick from 'containers/Songkick/Loadable'
+import FestivalDetails from 'containers/FestivalDetails/Loadable'
 import Spotify from 'containers/Spotify/Loadable'
 import SpotifyCallback from 'containers/SpotifyCallback'
 import NotFoundPage from 'containers/NotFoundPage/Loadable'
@@ -36,6 +37,7 @@ export default function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/songkick" component={Songkick} />
+          <Route exact path="/songkick/:path" component={FestivalDetails} />
           <Route exact path="/spotify/callback" component={SpotifyCallback} />
           <Route exact path="/spotify" component={Spotify} />
           <Route component={NotFoundPage} />

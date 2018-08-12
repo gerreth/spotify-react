@@ -41,6 +41,7 @@ export class SpotifyCallback extends React.Component {
 
         getFestivals(topBands, similarBands).then(festivals => {
           festivals = festivals.map(festival => {
+            festival.path = festival.name.toLowerCase().split(' ').join('-')
             festival.artists = festival.artists.map(artist => {
               if (topBands.find(band => band.name === artist.name)) {
                 artist.details = topBands.find(band => band.name === artist.name)
