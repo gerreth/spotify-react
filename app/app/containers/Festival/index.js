@@ -8,8 +8,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { playBand } from '../../services'
-
 import Band from 'components/Band'
+import FestivalHeader from 'components/FestivalHeader'
 
 import {
   formatDate
@@ -17,10 +17,6 @@ import {
 
 import {
   FestivalBands,
-  FestivalDate,
-  FestivalHeader,
-  FestivalHeadline,
-  FestivalLocation,
   FestivalWrapper,
 } from './styled'
 
@@ -37,30 +33,17 @@ class Festival extends React.Component {
       level,
       location,
       name,
+      path,
       token,
     } = this.props
 
     const bands = artists && artists.map((artist, index) =>
-      <Band
-        key={index}
-        last={index !== artists.length-1}
-        name={artist.name}
-        type={artist.type}
-      />
+      <Band key={index} last={index !== artists.length-1} name={artist.name} type={artist.type} />
     )
 
     return (
       <FestivalWrapper>
-        <FestivalHeader>
-          <FestivalLocation>
-            <span>{location.city}, {location.country}</span>
-          </FestivalLocation>
-          <FestivalDate>
-            <span>{formatDate(date.start)} - {formatDate(date.end)}</span>
-          </FestivalDate>
-          <FestivalHeadline>{name}</FestivalHeadline>
-        </FestivalHeader>
-
+        <FestivalHeader date={date} location={location} name={name} path={path} />
         <FestivalBands>
           { bands }
         </FestivalBands>
@@ -75,6 +58,7 @@ Festival.propTypes = {
   level: PropTypes.number,
   location: PropTypes.string,
   name: PropTypes.string,
+  path: PropTypes.string,
   token: PropTypes.string,
 }
 

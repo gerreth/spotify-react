@@ -33,8 +33,8 @@ class Header extends React.Component {
         { !data.auth.loggedIn && <Link to="/login">Login</Link> }
         { data.auth.loggedIn &&
           <React.Fragment>
-            <Link to="/spotify">Spotify</Link>
-            <Link to="/songkick">Songkick</Link>
+            <Link to="/bands">Bands</Link>
+            <Link to="/festivals">Festivals</Link>
             <Link to="/logout">Logout</Link>
           </React.Fragment>
         }

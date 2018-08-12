@@ -7,25 +7,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {
-  applyThreshold,
-  getMonth,
-  getMonthName,
-} from './helper'
-
-import {
-  sortByDate,
-} from '../../helper/index'
+import { sortByDate } from '../../helper/index'
 
 import Icon from 'components/Icon/index'
 import Festival from 'containers/Festival/index'
 import FestivalsFilter from 'containers/FestivalsFilter/index'
 
-import {
-  FestivalsWrapper,
-  Filter,
-  MonthSeperator,
-} from './styled'
+import { applyThreshold, getMonth, getMonthName } from './helper'
+import { FestivalsWrapper, Filter, MonthSeperator } from './styled'
 
 /* eslint-disable react/prefer-stateless-function */
 class Festivals extends React.Component {
@@ -51,10 +40,7 @@ class Festivals extends React.Component {
     const countries = this.getCountries(filteredFestivals, level)
 
     return countries.map(country => {
-      const count = filteredFestivals
-        .reduce((count, festival) => {
-          return festival.location.country === country ? count+1 : count
-        }, 0)
+      const count = filteredFestivals.filter(festival => festival.location.country === country).length
       if (hiddenCountries.indexOf(country) === -1) {
         return <span onClick={this.toggleCountry.bind(this, country)}>{country} ({count})</span>
       } else {
@@ -70,34 +56,29 @@ class Festivals extends React.Component {
       .filter(festival => hiddenCountries.indexOf(festival.location.country) === -1)
       .map((festival, index) => {
         const currentMonth = getMonth(festival.date.start)
-        if (currentMonth !== month) {
-          month = currentMonth
-          return <React.Fragment key={`Fragment_${index}`}>
-            <MonthSeperator key={`MonthSeperator_${month}`}>
-              {getMonthName(month)}
-            </MonthSeperator>
-            <Festival
-              key={index}
-              artists={festival.artists}
-              date={festival.date}
-              name={festival.name}
-              location={festival.location}
-              level={level}
-              token={token}
-            />
-          </React.Fragment>
-        } else {
-          return <Festival
+        const seperator = this.getMonthSeperator(currentMonth, month)
+        month = currentMonth
+
+        return <React.Fragment key={`Fragment_${index}`}>
+          {seperator}
+          <Festival
             key={index}
             artists={festival.artists}
             date={festival.date}
             name={festival.name}
             location={festival.location}
             level={level}
+            path={festival.path}
             token={token}
           />
-        }
+        </React.Fragment>
       })
+  }
+
+  getMonthSeperator(currentMonth, month) {
+    return (currentMonth !== month)
+      ? <MonthSeperator key={`MonthSeperator_${currentMonth}`}>{getMonthName(currentMonth)}</MonthSeperator>
+      : undefined
   }
 
   changeLevel(level) {
@@ -153,11 +134,7 @@ class Festivals extends React.Component {
 
     return (
       <FestivalsWrapper>
-        <FestivalsFilter
-          changeLevel={this.changeLevel.bind(this)}
-          countries={countries}
-          level={level}
-        />
+        <FestivalsFilter changeLevel={this.changeLevel.bind(this)} countries={countries} level={level} />
         { festivalList }
       </FestivalsWrapper>
     )

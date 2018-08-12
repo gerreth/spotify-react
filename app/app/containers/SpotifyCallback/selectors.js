@@ -20,6 +20,9 @@ const selectSpotifyCallbackDomain = state => state.get('data', initialState);
 const makeSelectSpotifyCallback = () =>
   createSelector(selectSpotifyCallbackDomain, substate => substate.toJS());
 
+const loading = () =>
+  createSelector(selectSpotifyCallbackDomain, substate => substate.get('loading'));
+
 const spotifySimilarBands = () =>
   createSelector(selectSpotifyCallbackDomain, substate => substate.getIn(['spotify','similarBands']));
 
@@ -42,6 +45,7 @@ const songkickFestivals = () =>
 
 export default makeSelectSpotifyCallback;
 export {
+  loading,
   selectSpotifyCallbackDomain,
   songkickFestival,
   songkickFestivals,

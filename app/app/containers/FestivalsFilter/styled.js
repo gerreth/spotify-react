@@ -12,7 +12,10 @@ export const FestivalsFilterWrapper = styled.div`
 
   &.active {
     background: #FEE837;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    background: rgba(253,230,75,0.99);
+    ${'' /* box-shadow: 0 1px 3px rgba(0,0,0,0.25); */}
+
+    border-bottom: 1px solid #d9dadc;
   }
 
   .label {

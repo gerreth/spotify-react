@@ -20,7 +20,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components';
 
-import { spotifyTopBands, spotifySimilarBands, songkickFestivals } from '../SpotifyCallback/selectors'
+import { loading, spotifyTopBands, spotifySimilarBands, songkickFestivals } from '../SpotifyCallback/selectors'
 import reducer from '../SpotifyCallback/reducer'
 import {
   formatDate,
@@ -28,28 +28,11 @@ import {
 } from '../../helper/index'
 
 import Band from 'components/Band'
+import FestivalHeader from 'components/FestivalHeader'
 
-const FestivalHeader = styled.div`
-  line-height: 1.4;
-`;
-
-const FestivalHeadline = styled.div`
-  font-size: 1.5em;
-`;
-
-const FestivalLocation = styled.div`
-  span {
-    color: #999;
-    font-size: .8em;
-    font-weight: 600;
-  }
-`;
-
-const FestivalDate = styled.div`
-  span {
-    color: #999;
-    font-size: .8em;
-  }
+const TopWrapper = styled.div`
+  padding: 18px;
+  width: 400px;
 `;
 
 const FestivalBands = styled.div`
@@ -62,80 +45,82 @@ const FestivalBands = styled.div`
   }
 `;
 
+const FestivalWrapper = styled.div`
+  margin-top: 36px;
+`;
+
 /* eslint-disable react/prefer-stateless-function */
 class HomePage extends React.Component {
+  getTopFestivals(festivals) {
+    return festivals
+      .sort((a,b) => b.count - a.count)
+      .slice(0,3)
+      .sort(sortByDate)
+      .map(festival => {
+        return (
+          <FestivalWrapper>
+            <FestivalHeader date={festival.date} location={festival.location} name={festival.name} path={festival.path} />
+            <FestivalBands>
+              {this.getHighlightBands(festival.artists.filter(artist => artist.highlight))}
+              {this.getSimilarBands(festival.artists.filter(artist => artist.similar))}
+              <Link to={`/festivals/${festival.path}`}>
+                ... {festival.artists.filter(artist => !artist.highlight && !artist.similar).length} mehr
+              </Link>
+            </FestivalBands>
+          </FestivalWrapper>
+        )
+      })
+  }
+
+  getHighlightBands(artists) {
+    return artists.map((artist, index) =>
+      <Band key={index} last={true} name={artist.name} type={artist.type} />
+    )
+  }
+
+  getSimilarBands(artists) {
+    return artists.map((artist, index) =>
+      <Band key={index} last={true} name={artist.name} type={artist.type} />
+    )
+  }
 
   render() {
     const {
+      loading,
       festivals,
       similarBands,
       topBands,
     } = this.props
 
-    const topFestivals = festivals.map(festival => {
-      festival.count = festival.artists.reduce((count, artist) => {
-        return count + 2*artist.highlight + artist.similar
-      }, 0)
-
-      return festival
-    }).sort((a,b) => b.count - a.count).slice(0,3).sort(sortByDate)
+    const topFestivals = this.getTopFestivals(festivals)
 
     return (
-      <div style={{ padding: '18px', width: '400px' }}>
-        <h2 style={{ fontWeight: '600' }}>Top 3</h2>
-        {topFestivals.map(festival => {
-          return (
-            <div style={{ marginTop: '18px' }}>
-              <FestivalHeader>
-                <FestivalLocation>
-                  <span>{festival.location.city}, {festival.location.country}</span>
-                </FestivalLocation>
-                <FestivalDate>
-                  <span>{formatDate(festival.date.start)} - {formatDate(festival.date.end)}</span>
-                </FestivalDate>
-                <FestivalHeadline>{festival.name}</FestivalHeadline>
-              </FestivalHeader>
-              <FestivalBands>
-                {festival.artists.map((artist, index) => {
-                  if (artist.highlight) {
-                    return <Band
-                      key={index}
-                      last={true}
-                      name={artist.name}
-                      type={artist.type}
-                    />
-                  }
-                })}
-
-                {festival.artists.map((artist, index) => {
-                  if (artist.similar) {
-                    return <Band
-                      key={index}
-                      last={true}
-                      name={artist.name}
-                      type={artist.type}
-                    />
-                  }
-                })}
-
-                <Link to={`/songkick/${festival.path}`}>...mehr</Link>
-              </FestivalBands>
+      <TopWrapper>
+        {loading && <span>... loading ... </span>}
+        {!loading &&
+          <div>
+            <h2 style={{ fontWeight: '600' }}>Top 3 Festivals</h2>
+            {topFestivals}
+            <div style={{ padding: '36px 0' }}>
+              <Link to={`/festivals`} style={{ color: '#999', textDecoration: 'none' }}>Mehr Festivals</Link>
             </div>
-          )
-        })}
-      </div>
+          </div>
+        }
+      </TopWrapper>
     )
   }
 }
 
 HomePage.propTypes = {
   festivals: PropTypes.array,
+  loading: PropTypes.bool,
   similarBands: PropTypes.array,
   topBands: PropTypes.array,
 }
 
 const mapStateToProps = createStructuredSelector({
   festivals: songkickFestivals(),
+  loading: loading(),
   similarBands: spotifySimilarBands(),
   topBands: spotifyTopBands(),
 })

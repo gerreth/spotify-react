@@ -15,34 +15,12 @@ import styled from 'styled-components';
 import { songkickFestivals } from '../SpotifyCallback/selectors'
 import reducer from '../SpotifyCallback/reducer'
 import Band from 'components/Band'
+import FestivalHeader from 'components/FestivalHeader'
 
 import {
   formatDate,
   sortByDate,
 } from '../../helper/index'
-
-const FestivalHeader = styled.div`
-  line-height: 1.4;
-`;
-
-const FestivalHeadline = styled.div`
-  font-size: 1.5em;
-`;
-
-const FestivalLocation = styled.div`
-  span {
-    color: #999;
-    font-size: .8em;
-    font-weight: 600;
-  }
-`;
-
-const FestivalDate = styled.div`
-  span {
-    color: #999;
-    font-size: .8em;
-  }
-`;
 
 const FestivalBands = styled.div`
   font-size: .8em;
@@ -63,6 +41,7 @@ class FestivalDetails extends React.Component {
   render() {
     const {
       festivals,
+      history,
       match: {
         params: {
           path
@@ -71,30 +50,30 @@ class FestivalDetails extends React.Component {
     } = this.props
 
     const festival = festivals.find(_ => _.path === path)
-    console.log('festival', festival)
     const bands = festival.artists && festival.artists.map((artist, index) =>
-      <Band
-        key={index}
-        last={index !== festival.artists.length-1}
-        name={artist.name}
-        type={artist.type}
-      />
+      <Band key={index} last={index !== festival.artists.length-1} name={artist.name} type={artist.type} />
     )
 
     return (
-      <div style={{ padding: '18px', width: '400px' }}>
-        <FestivalHeader>
-          <FestivalLocation>
-            <span>{festival.location.city}, {festival.location.country}</span>
-          </FestivalLocation>
-          <FestivalDate>
-            <span>{formatDate(festival.date.start)} - {formatDate(festival.date.end)}</span>
-          </FestivalDate>
-          <FestivalHeadline>{festival.name}</FestivalHeadline>
-        </FestivalHeader>
-        <FestivalBands>
-          {bands}
-        </FestivalBands>
+      <div>
+        <a style={{ cursor: 'pointer', display: 'block', fontSize: '.8em', fontWeight: '600' }} onClick={history.goBack}>Zurück</a>
+        <div style={{ padding: '18px', width: '600px' }}>
+          <FestivalHeader
+            date={festival.date}
+            location={festival.location}
+            link={false}
+            name={festival.name}
+            path={festival.path} />
+          <FestivalBands>
+            {bands}
+          </FestivalBands>
+          <div style={{ lineHeight: '1.75' }}>
+            <h3>Venue:</h3>
+            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>{festival.venue[0].displayName} ({festival.venue.length})</p>
+            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>Lat: {festival.venue[0].lat}</p>
+            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>Lng: {festival.venue[0].lng}</p>
+          </div>
+        </div>
       </div>
     )
   }

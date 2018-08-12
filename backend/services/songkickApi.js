@@ -158,6 +158,10 @@ class songkickApi {
 
           let result = {}
 
+          if (festival.displayName === 'Reeperbahn Festival 2018') {
+            console.log('Reeperbahn', festival.venue)
+          }
+
           result.name = festival.displayName
           result.date = {
             start: festival.start.date,
@@ -169,6 +173,8 @@ class songkickApi {
           result.location = {}
           result.location.city = location[0]
           result.location.country = location[1]
+
+          result.venue = (exists.length > 0) ? [...exists[0].venue, festival.venue] : [festival.venue]
           // If duplicate found, merge artists
           result.artists = (exists.length > 0) ? [...exists[0].artists, ...festival.performance.map(artist => artist.displayName)] : festival.performance.map(artist => artist.displayName)
 

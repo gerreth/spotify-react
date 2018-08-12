@@ -36,10 +36,10 @@ export default function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
-          <Route exact path="/songkick" component={Songkick} />
-          <Route exact path="/songkick/:path" component={FestivalDetails} />
+          <Route exact path="/festivals" component={Songkick} />
+          <Route exact path="/festivals/:path" component={FestivalDetails} />
           <Route exact path="/spotify/callback" component={SpotifyCallback} />
-          <Route exact path="/spotify" component={Spotify} />
+          <Route exact path="/bands" component={Spotify} />
           <Route component={NotFoundPage} />
         </Switch>
       </ContentWrapper>
