@@ -4,14 +4,14 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { Helmet } from 'react-helmet';
 import injectReducer from 'utils/injectReducer';
+import PropTypes from 'prop-types';
+import React from 'react';
+
 // Local imports
 import { setBands, setFestivals, setSimilarBands, setToken } from './actions';
 import makeSelectSpotifyCallback from './selectors';
@@ -29,7 +29,6 @@ export class SpotifyCallback extends React.Component {
       setToken,
     } = this.props
 
-    // const token = "BQByxRI0B_R-lO_7XwfpzdRIWpBIn0IG32bfrE-jXUrPAJc0ncVWFLSVlpaBxcCgm63oaowDVEIMzRIzy5JVedvAxbpxw5kVTHH10oVjCqiKKVMySWiTHvSlnm74su5EBBQR2iWCWLzziXMdZZpZ6mxuZmOls1fTZhomuaYombrrcTLvhBZEvQg_b_Z35YITMmq3hkKoZ3XUT6MtsCW4YqmiavN56VSCl-Sxnm3JGQ"
     const token = getToken()
 
     setToken(token)

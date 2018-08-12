@@ -11,8 +11,11 @@ import {
   applyThreshold,
   getMonth,
   getMonthName,
-  sortByDate,
 } from './helper'
+
+import {
+  sortByDate,
+} from '../../helper/index'
 
 import Icon from 'components/Icon/index'
 import Festival from 'containers/Festival/index'

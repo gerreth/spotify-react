@@ -20,24 +20,26 @@ export const BandInnerWrapper = styled.div`
   bottom: 0;
   cursor: pointer;
   left: 0;
-  padding: 30px;
+  padding: 18px 18px 36px;
   position: absolute;
   right: 0;
   top: 0;
 
   &:hover {
     opacity: .8;
-    padding: 30px;
   }
 `;
 
 export const BandName = styled.div`
   background: rgba(255,255,255,1);
   bottom: 0;
+  font-size: .8em;
   font-weight: 600;
-  line-height: 30px;
+  line-height: 36px;
+  padding: 0 18px;
   position: absolute;
-  right: 30px;
+  right: 18px;
+  text-align: right;
 `;
 
 export const BandImage = styled.div`

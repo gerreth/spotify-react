@@ -2,10 +2,12 @@ import styled from 'styled-components'
 
 export const FestivalsFilterWrapper = styled.div`
   display: flex;
+  left: 0;
   line-height: 36px;
   padding: 9px 18px;
   position: fixed;
   top: 72px;
+  user-select: none;
   width: 100%;
 
   &.active {
@@ -44,12 +46,14 @@ export const CountrySelector = styled.div`
   .option {
     cursor: pointer;
     position: absolute;
+    width: 100%;
 
     span {
       background: #FFFFFF;
       display: block;
       line-height: 36px;
       padding: 0 18px;
+      width: 100%;
     }
   }
 `;

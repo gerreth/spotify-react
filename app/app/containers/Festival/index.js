@@ -13,7 +13,7 @@ import Band from 'components/Band'
 
 import {
   formatDate
-} from './helper'
+} from '../../helper/index'
 
 import {
   FestivalBands,

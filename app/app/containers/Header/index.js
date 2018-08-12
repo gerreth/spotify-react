@@ -4,15 +4,14 @@
  *
  */
 
-import PropTypes from 'prop-types';
-import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import injectReducer from 'utils/injectReducer';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 // Local imports
 import messages from './messages';

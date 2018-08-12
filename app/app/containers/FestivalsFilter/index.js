@@ -70,23 +70,27 @@ class FestivalFilter extends React.Component {
     return (
       <FestivalsFilterWrapper className={active}>
         <Icon type="filter" onClick={this.toggleFilter.bind(this)} />
-        <LevelSelector>
-          <span className="label">Min Matches:</span>
-          <Icon type="arrow-left" onClick={this.decreaseLevel.bind(this)} />
-          <span className="value">{level}</span>
-          <Icon type="arrow-right" onClick={this.increaseLevel.bind(this)} />
-        </LevelSelector>
-        <CountrySelector>
-          <span className="label">Countries:</span>
-          <div className="option-wrapper">
-            <div className="option">
-              <span onClick={this.toggleCountries.bind(this)}>Select</span>
-              {showCountries &&
-                countries
-              }
+        {this.state.active &&
+          <LevelSelector>
+            <span className="label">Min Matches:</span>
+            <Icon type="arrow-left" onClick={this.decreaseLevel.bind(this)} />
+            <span className="value">{level}</span>
+            <Icon type="arrow-right" onClick={this.increaseLevel.bind(this)} />
+          </LevelSelector>
+        }
+        {this.state.active &&
+          <CountrySelector>
+            <span className="label">Countries:</span>
+            <div className="option-wrapper">
+              <div className="option">
+                <span onClick={this.toggleCountries.bind(this)}>Select</span>
+                {showCountries &&
+                  countries
+                }
+              </div>
             </div>
-          </div>
-        </CountrySelector>
+          </CountrySelector>
+        }
       </FestivalsFilterWrapper>
     )
   }

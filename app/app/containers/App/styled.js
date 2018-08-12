@@ -12,5 +12,5 @@ export const AppWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   height: 100%;
-  padding-top: 72px;
+  padding: 90px 18px 18px;
 `;
