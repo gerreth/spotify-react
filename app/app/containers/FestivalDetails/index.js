@@ -57,12 +57,10 @@ class FestivalDetails extends React.Component {
     return (
       <div>
         <a style={{ cursor: 'pointer', display: 'block', fontSize: '.8em', fontWeight: '600' }} onClick={history.goBack}>Zurück</a>
-        <div style={{ padding: '18px', width: '600px' }}>
+        <div style={{ padding: '18px', width: 20*36 + 'px' }}>
           <FestivalHeader
-            date={festival.date}
-            location={festival.location}
+            festival={festival}
             link={false}
-            name={festival.name}
             path={festival.path} />
           <FestivalBands>
             {bands}

@@ -69,7 +69,9 @@ class FestivalFilter extends React.Component {
 
     return (
       <FestivalsFilterWrapper className={active}>
-        <Icon type="filter" onClick={this.toggleFilter.bind(this)} />
+        <div className="filter-icon" style={{ padding: '0 18px' }}>
+          <Icon type="filter" onClick={this.toggleFilter.bind(this)} />
+        </div>
         {this.state.active &&
           <LevelSelector>
             <span className="label">Min Matches:</span>

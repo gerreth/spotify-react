@@ -32,7 +32,7 @@ import FestivalHeader from 'components/FestivalHeader'
 
 const TopWrapper = styled.div`
   padding: 18px;
-  width: 400px;
+  width: ${10*36}px;
 `;
 
 const FestivalBands = styled.div`
@@ -59,7 +59,7 @@ class HomePage extends React.Component {
       .map(festival => {
         return (
           <FestivalWrapper>
-            <FestivalHeader date={festival.date} location={festival.location} name={festival.name} path={festival.path} />
+            <FestivalHeader festival={festival} path={festival.path} />
             <FestivalBands>
               {this.getHighlightBands(festival.artists.filter(artist => artist.highlight))}
               {this.getSimilarBands(festival.artists.filter(artist => artist.similar))}

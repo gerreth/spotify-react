@@ -28,22 +28,19 @@ class Festival extends React.Component {
 
   render() {
     const {
-      artists,
-      date,
+      festival,
       level,
-      location,
-      name,
       path,
       token,
     } = this.props
 
-    const bands = artists && artists.map((artist, index) =>
-      <Band key={index} last={index !== artists.length-1} name={artist.name} type={artist.type} />
+    const bands = festival.artists && festival.artists.map((artist, index) =>
+      <Band key={index} last={index !== festival.artists.length-1} name={artist.name} type={artist.type} />
     )
 
     return (
       <FestivalWrapper>
-        <FestivalHeader date={date} location={location} name={name} path={path} />
+        <FestivalHeader festival={festival} path={path} />
         <FestivalBands>
           { bands }
         </FestivalBands>
@@ -53,11 +50,13 @@ class Festival extends React.Component {
 }
 
 Festival.propTypes = {
-  artists: PropTypes.array,
-  date: PropTypes.object,
+  festival: PropTypes.shape({
+    artists: PropTypes.array,
+    date: PropTypes.object,
+    location: PropTypes.string,
+    name: PropTypes.string,
+  }),
   level: PropTypes.number,
-  location: PropTypes.string,
-  name: PropTypes.string,
   path: PropTypes.string,
   token: PropTypes.string,
 }

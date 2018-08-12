@@ -18,7 +18,7 @@ const Icon = (props) => {
   }
 
   switch (type) {
-    case 'filter': return <svg style={style} onClick={onClick} xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><title>ic_arrow_drop_up_36px</title>
+    case 'filter': return <svg onClick={onClick} xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><title>ic_arrow_drop_up_36px</title>
         <g className="nc-icon-wrapper" fill="#111111">
           <rect x="8" y="12" width="20" height="2" />
           <rect x="8" y="18" width="20" height="2" />

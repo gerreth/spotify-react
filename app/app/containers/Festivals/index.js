@@ -65,6 +65,7 @@ class Festivals extends React.Component {
             key={index}
             artists={festival.artists}
             date={festival.date}
+            festival={festival}
             name={festival.name}
             location={festival.location}
             level={level}

@@ -20,11 +20,13 @@ import {
 
 const FestivalHeader = (props) => {
   const {
-    date,
+    festival: {
+      date,
+      location,
+      name,
+    },
     history,
     link,
-    location,
-    name,
     path,
   } = props
 
