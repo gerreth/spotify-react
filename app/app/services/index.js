@@ -45,18 +45,52 @@ export function playBand(token, uri) {
 }
 
 // Get festivals from songkick
+// export function getFestivals(topBands, similarBands) {
+//   topBands = topBands.reduce((carry, band) => {
+//     return (carry === '') ? band.name : `${carry}___${band.name}`
+//   }, '')
+//
+//   similarBands = similarBands.reduce((carry, band) => {
+//     return (carry === '') ? band.name : `${carry}___${band.name}`
+//   }, '')
+//
+//   const url = `http://localhost:8001/songkick/festivals-new?${querystring.stringify({ topBands, similarBands })}`
+//
+//   return fetch(url, options).then(response => {
+//     console.log(response)
+//     return response.json()
+//   }).catch(error => {
+//     console.log(error)
+//   })
+// }
+
+// Get festivals from songkick
 export function getFestivals(topBands, similarBands) {
   topBands = topBands.reduce((carry, band) => {
-    return (carry === '') ? band.name : `${carry}___${band.name}`
-  }, '')
+    carry.push(band.name)
+    return carry
+  }, [])
 
   similarBands = similarBands.reduce((carry, band) => {
-    return (carry === '') ? band.name : `${carry}___${band.name}`
-  }, '')
+    carry.push(band.name)
+    return carry
+  }, [])
 
-  const url = `http://localhost:8001/songkick/festivals?${querystring.stringify({ topBands, similarBands })}`
+  const postOptions = {
+    method: 'post',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      topBands,
+      similarBands
+    })
+  }
 
-  return fetch(url, options).then(response => {
+  console.log('postOptions', postOptions)
+
+  const url = 'http://localhost:8001/songkick/festivals-new'
+
+  return fetch(url, postOptions).then(response => {
+    console.log(response)
     return response.json()
   }).catch(error => {
     console.log(error)

@@ -1,6 +1,7 @@
 import express from 'express'
 
 import songkickService from '../services/songkickService'
+import songkick from '../controllers/songkick'
 
 const router = express.Router()
 
@@ -10,6 +11,23 @@ const router = express.Router()
 router.get('/', (req, res) => {
   res.send('respond with a resource')
 })
+
+/*
+ * Get festivals
+ */
+router.post('/festivals-new', songkick.get_festivals)
+// router.post('/festivals-new', (req, res) => {
+//   const topBands = req.body.topBands
+//   const similarBands = req.body.similarBands
+//
+//   console.log('topBands', topBands)
+//   console.log('similarBands', similarBands
+// )
+//   const festivals = songkick.get_festivals()
+//   console.log('festivals')
+//
+//   console.log(festivals)
+// })
 
 /*
  * Get festivals

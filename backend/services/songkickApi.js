@@ -161,7 +161,7 @@ class songkickApi {
           if (festival.displayName === 'Reeperbahn Festival 2018') {
             console.log('Reeperbahn', festival.venue)
           }
-
+          
           result.name = festival.displayName
           result.date = {
             start: festival.start.date,
