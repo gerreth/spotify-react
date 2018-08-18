@@ -31,7 +31,8 @@ export class SpotifyCallback extends React.Component {
       setToken,
     } = this.props
 
-    const token = getToken()
+    // const token = getToken()
+    const token = "BQC4zDIxVoi8dKuWifG1wDot_J_2d7lDyGa8HVlQT8321Koy61NnlnUIc6EV9t8YyCJQFUtnA0P43HdFtJy0sM1CgVe8QUl-JmYx7TPFJkvD0KCYqbnWvRs2VjhxMugh2NtA2ueS72POXYxySqpF2O7IjiXy45uN3etIxcrgE8FOBV-JLUpb83g3ofQ6GECkSvAUwfm1k6sI4jnBi5dntJgjvFy-cC0Kc6foPizSFQ"
 
     setToken(token)
 

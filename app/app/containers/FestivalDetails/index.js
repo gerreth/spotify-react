@@ -56,7 +56,7 @@ class FestivalDetails extends React.Component {
 
     return (
       <div>
-        <a style={{ cursor: 'pointer', display: 'block', fontSize: '.8em', fontWeight: '600' }} onClick={history.goBack}>Zurück</a>
+        <a style={{ cursor: 'pointer', display: 'block', fontSize: '.8em', fontWeight: '600', paddingLeft: '18px' }} onClick={history.goBack}>Zurück</a>
         <div style={{ padding: '18px', width: 20*36 + 'px' }}>
           <FestivalHeader
             festival={festival}
@@ -67,9 +67,9 @@ class FestivalDetails extends React.Component {
           </FestivalBands>
           <div style={{ lineHeight: '1.75' }}>
             <h3>Venue:</h3>
-            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>{festival.venue[0].displayName} ({festival.venue.length})</p>
-            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>Lat: {festival.venue[0].lat}</p>
-            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>Lng: {festival.venue[0].lng}</p>
+            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>{festival.venue.displayName} ({festival.venue.length})</p>
+            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>Lat: {festival.venue.lat}</p>
+            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>Lng: {festival.venue.lng}</p>
           </div>
         </div>
       </div>

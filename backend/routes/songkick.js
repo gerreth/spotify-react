@@ -15,24 +15,13 @@ router.get('/', (req, res) => {
 /*
  * Get festivals
  */
-router.post('/festivals-new', songkick.get_festivals)
-// router.post('/festivals-new', (req, res) => {
-//   const topBands = req.body.topBands
-//   const similarBands = req.body.similarBands
-//
-//   console.log('topBands', topBands)
-//   console.log('similarBands', similarBands
-// )
-//   const festivals = songkick.get_festivals()
-//   console.log('festivals')
-//
-//   console.log(festivals)
-// })
+
+router.post('/festivals', songkick.festivals)
 
 /*
- * Get festivals
+ * Get festivals deprecated()
  */
-router.get('/festivals', (req, res) => {
+router.get('/festivals-deprecated', (req, res) => {
   const topBands = req.query.topBands.split('___')
   const similarBands = req.query.similarBands.split('___')
 
