@@ -24,24 +24,46 @@ class FestivalFilter extends React.Component {
       active: false,
       showCountries: false,
     }
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  /**
+   * Set the wrapper ref
+   */
+  setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
+  /**
+   * Alert if clicked on outside of element
+   */
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState((state, props) => {
+        return { showCountries: false }
+      })
+    }
   }
 
   decreaseLevel = () => {
-    const {
-      changeLevel,
-      level
-    } = this.props
-
-    changeLevel(level > 1 ? level - 1 : 1)
+    this.changeLevel(this.props.level > 1 ? this.props.level - 1 : 1)
   }
 
   increaseLevel = () => {
-    const {
-      changeLevel,
-      level
-    } = this.props
+    this.changeLevel(this.props.level + 1)
+  }
 
-    changeLevel(level + 1)
+  changeLevel(level) {
+    this.props.changeLevel(level)
   }
 
   toggleFilter() {
@@ -64,6 +86,7 @@ class FestivalFilter extends React.Component {
       level
     } = this.props
 
+    const levels = [1,2,3,4,5,6,7,8,9,10].map(level => <span className="value" onClick={this.changeLevel.bind(this, level)}>{level}</span>)
     const active = this.state.active ? "active" : ""
     const showCountries = this.state.showCountries
 
@@ -76,14 +99,19 @@ class FestivalFilter extends React.Component {
           <LevelSelector>
             <span className="label">Min Matches:</span>
             <Icon type="arrow-left" onClick={this.decreaseLevel.bind(this)} />
-            <span className="value">{level}</span>
+            <div className="option-wrapper" ref={this.setWrapperRef}>
+              <div className="option">
+                <span className="value" onClick="">{level}</span>
+                {levels}
+              </div>
+            </div>
             <Icon type="arrow-right" onClick={this.increaseLevel.bind(this)} />
           </LevelSelector>
         }
         {this.state.active &&
           <CountrySelector>
             <span className="label">Countries:</span>
-            <div className="option-wrapper">
+            <div className="option-wrapper" ref={this.setWrapperRef}>
               <div className="option">
                 <span onClick={this.toggleCountries.bind(this)}>Select</span>
                 {showCountries &&
@@ -100,6 +128,7 @@ class FestivalFilter extends React.Component {
 
 FestivalFilter.propTypes = {
   changeLevel: PropTypes.func,
+  countries: PropTypes.array,
   level: PropTypes.string,
 }
 

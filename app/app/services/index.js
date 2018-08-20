@@ -85,8 +85,6 @@ export function getFestivals(topBands, similarBands) {
     })
   }
 
-  console.log('postOptions', postOptions)
-
   const url = 'http://localhost:8001/songkick/festivals'
 
   return fetch(url, postOptions).then(response => {

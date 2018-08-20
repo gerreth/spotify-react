@@ -51,6 +51,30 @@ export const LevelSelector = styled.div`
     text-align: center;
     width: 36px;
   }
+
+  .option-wrapper {
+    display: inline-block;
+    position: relative;
+    width: 150px
+  }
+
+  .option {
+    cursor: pointer;
+    position: absolute;
+    width: 100%;
+
+    span {
+      background: #FFFFFF;
+      border-bottom: 1px solid #d9dadc;
+      // border-left: 1px solid #d9dadc;
+      // border-right: 1px solid #d9dadc;
+      display: block;
+      font-weight: 600;
+      line-height: 36px;
+      padding: 0 18px;
+      width: 100%;
+    }
+  }
 `;
 
 export const CountrySelector = styled.div`
