@@ -5,7 +5,7 @@ export default class songkickService {
 
   constructor() {
     const min_date = '2018-07-01'
-    const max_date = '2018-12-31'
+    const max_date = '2019-06-30'
     const type = 'festival'
     const api_key = 'VNvgkjz2uCB5y2G6'
 
@@ -65,7 +65,7 @@ export default class songkickService {
       try {
         response = await this.makeRequest(url)
       } catch(error) {
-        console.log(error)
+        console.log(error.body)
       }
       console.log('from api')
       return response

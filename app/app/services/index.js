@@ -38,7 +38,6 @@ export function playBand(token, uri) {
   const url = `http://localhost:8001/spotify/play?${querystring.stringify({ token, uri })}`
 
   return fetch(url, options).then(response => {
-    console.log('play')
   }).catch(error => {
     console.log(error.body)
   });
@@ -88,7 +87,6 @@ export function getFestivals(topBands, similarBands) {
   const url = 'http://localhost:8001/songkick/festivals'
 
   return fetch(url, postOptions).then(response => {
-    console.log(response)
     return response.json()
   }).catch(error => {
     console.log(error)

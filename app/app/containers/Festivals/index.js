@@ -120,6 +120,7 @@ class Festivals extends React.Component {
     const {
       festivals,
       token,
+      maxCount
     } = this.props
 
     const {
@@ -135,7 +136,7 @@ class Festivals extends React.Component {
 
     return (
       <FestivalsWrapper>
-        <FestivalsFilter changeLevel={this.changeLevel.bind(this)} countries={countries} level={level} />
+        <FestivalsFilter changeLevel={this.changeLevel.bind(this)} countries={countries} level={level} maxCount={maxCount}/>
         { festivalList }
       </FestivalsWrapper>
     )
@@ -145,6 +146,7 @@ class Festivals extends React.Component {
 Festivals.propTypes = {
   festivals: PropTypes.array.isRequired,
   token: PropTypes.string,
+  maxCount: PropTypes.number,
 }
 
 export default Festivals

@@ -55,7 +55,7 @@ export const LevelSelector = styled.div`
   .option-wrapper {
     display: inline-block;
     position: relative;
-    width: 150px
+    width: 36px
   }
 
   .option {
@@ -65,13 +65,9 @@ export const LevelSelector = styled.div`
 
     span {
       background: #FFFFFF;
-      border-bottom: 1px solid #d9dadc;
-      // border-left: 1px solid #d9dadc;
-      // border-right: 1px solid #d9dadc;
       display: block;
       font-weight: 600;
       line-height: 36px;
-      padding: 0 18px;
       width: 100%;
     }
   }

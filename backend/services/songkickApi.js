@@ -5,7 +5,7 @@ import client from '../redis';
 class songkickApi {
   constructor() {
     this.min_date = '2018-07-01'
-    this.max_date = '2018-12-30'
+    this.max_date = '2019-06-30'
     this.type = 'festival'
 
     this.cities = {
@@ -29,6 +29,7 @@ class songkickApi {
       DE: {
         Berlin: '28443',
         Hamburg: '28498',
+        Nuremberg: '',
       },
       ES: {
         Barcelona: '28714',
@@ -51,9 +52,11 @@ class songkickApi {
         Porto: '',
       },
       UK: {
+        Glastonbury: '',
         London: '24426',
         Leeds: '',
         Manchester: '24475',
+        Reading: '',
       },
     }
 
@@ -161,7 +164,7 @@ class songkickApi {
           if (festival.displayName === 'Reeperbahn Festival 2018') {
             console.log('Reeperbahn', festival.venue)
           }
-          
+
           result.name = festival.displayName
           result.date = {
             start: festival.start.date,

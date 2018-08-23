@@ -67,7 +67,7 @@ router.get('/play', (req, res, next) => {
   })
 
   promise.then(result => {
-    console.log(result.body)
+
   }).catch(error => {
     console.log(error.body)
   })

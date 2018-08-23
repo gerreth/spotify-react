@@ -63,6 +63,15 @@ Songkick.propTypes = {
   token: PropTypes.string,
 };
 
+// const mapStateToProps = (state) => {
+//   return {
+//     festivals: songkickFestivals(state),
+//     similarBands: spotifySimilarBands(state),
+//     topBands: spotifyTopBands(state),
+//     token: spotifyToken(state)
+//   }
+// }
+
 const mapStateToProps = createStructuredSelector({
   festivals: songkickFestivals(),
   similarBands: spotifySimilarBands(),

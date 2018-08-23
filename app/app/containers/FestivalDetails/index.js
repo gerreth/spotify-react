@@ -10,7 +10,9 @@ import { createStructuredSelector } from 'reselect'
 import injectReducer from 'utils/injectReducer'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
+
+import GoogleMapReact from 'google-map-react'
 
 import { songkickFestivals } from '../SpotifyCallback/selectors'
 import reducer from '../SpotifyCallback/reducer'
@@ -31,6 +33,18 @@ const FestivalBands = styled.div`
     text-decoration: none;
   }
 `;
+
+const AnyReactComponent = ({ text }) =>                 <div
+                  style={{
+                    background: '#fff',
+                    border: 'solid #FEE837 4px',
+                    borderRadius: '20px',
+                    display: 'inline-block',
+                    height: '40px',
+                    width: '40px',
+                    textAlign: 'center',
+                  }}
+                ></div>;
 
 /* eslint-disable react/prefer-stateless-function */
 class FestivalDetails extends React.Component {
@@ -67,9 +81,20 @@ class FestivalDetails extends React.Component {
           </FestivalBands>
           <div style={{ lineHeight: '1.75' }}>
             <h3>Venue:</h3>
-            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>{festival.venue.displayName} ({festival.venue.length})</p>
-            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>Lat: {festival.venue.lat}</p>
-            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>Lng: {festival.venue.lng}</p>
+            <p style={{ fontSize: '1em', lineHeight: '1.75' }}>{festival.venue.displayName}</p>
+            <div style={{ height: '400px' }}>
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: 'AIzaSyAGsh4npa4ARrdYC7GBj2btGXosbfENA70' }}
+                defaultCenter={{ lat: festival.venue.lat, lng: festival.venue.lng }}
+                defaultZoom={14}
+              >
+                <AnyReactComponent
+                  lat={festival.venue.lat}
+                  lng={festival.venue.lng}
+                  text={festival.venue.displayName}
+                />
+              </GoogleMapReact>
+            </div>
           </div>
         </div>
       </div>

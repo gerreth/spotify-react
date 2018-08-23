@@ -8,6 +8,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Icon from 'components/Icon/index'
+import VerticalSlider from 'components/VerticalSlider/index'
 
 import {
   CountrySelector,
@@ -23,6 +24,7 @@ class FestivalFilter extends React.Component {
     this.state = {
       active: false,
       showCountries: false,
+      showLevels: false,
     }
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -78,17 +80,31 @@ class FestivalFilter extends React.Component {
     })
   }
 
+  toggleLevels() {
+    this.setState((state, props) => {
+      return { showLevels: !state.showLevels }
+    })
+  }
+
+  onChange(value) {
+    this.changeLevel(value)
+  }
+
   render() {
     const {
       countries,
       decreaseLevel,
       increaseLevel,
-      level
+      level,
+      maxCount
     } = this.props
 
-    const levels = [1,2,3,4,5,6,7,8,9,10].map(level => <span className="value" onClick={this.changeLevel.bind(this, level)}>{level}</span>)
     const active = this.state.active ? "active" : ""
-    const showCountries = this.state.showCountries
+
+    const {
+      showCountries,
+      showLevels,
+    } = this.state
 
     return (
       <FestivalsFilterWrapper className={active}>
@@ -99,10 +115,12 @@ class FestivalFilter extends React.Component {
           <LevelSelector>
             <span className="label">Min Matches:</span>
             <Icon type="arrow-left" onClick={this.decreaseLevel.bind(this)} />
-            <div className="option-wrapper" ref={this.setWrapperRef}>
+            <div className="option-wrapper">
               <div className="option">
-                <span className="value" onClick="">{level}</span>
-                {levels}
+                <span className="value" onClick={this.toggleLevels.bind(this)}>{level}</span>
+                {showLevels &&
+                  <VerticalSlider level={level} maxCount={maxCount} onChange={this.onChange.bind(this)} />
+                }
               </div>
             </div>
             <Icon type="arrow-right" onClick={this.increaseLevel.bind(this)} />
@@ -129,7 +147,8 @@ class FestivalFilter extends React.Component {
 FestivalFilter.propTypes = {
   changeLevel: PropTypes.func,
   countries: PropTypes.array,
-  level: PropTypes.string,
+  level: PropTypes.number,
+  maxCount: PropTypes.number,
 }
 
 export default FestivalFilter
