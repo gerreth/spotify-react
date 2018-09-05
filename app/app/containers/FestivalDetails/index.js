@@ -16,7 +16,7 @@ import GoogleMapReact from 'google-map-react'
 
 import { songkickFestivals } from '../SpotifyCallback/selectors'
 import reducer from '../SpotifyCallback/reducer'
-import Band from 'components/Band'
+import Bands from 'components/Bands'
 import FestivalHeader from 'components/FestivalHeader'
 
 import {
@@ -65,7 +65,7 @@ class FestivalDetails extends React.Component {
 
     const festival = festivals.find(_ => _.path === path)
     const bands = festival.artists && festival.artists.map((artist, index) =>
-      <Band key={index} last={index !== festival.artists.length-1} name={artist.name} type={artist.type} />
+      <Bands key={index} last={index !== festival.artists.length-1} name={artist.name} type={artist.type} />
     )
 
     return (

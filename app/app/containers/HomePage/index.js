@@ -27,7 +27,7 @@ import {
   sortByDate,
 } from '../../helper/index'
 
-import Band from 'components/Band'
+import Bands from 'components/Bands'
 import FestivalHeader from 'components/FestivalHeader'
 
 const TopWrapper = styled.div`
@@ -74,13 +74,13 @@ class HomePage extends React.Component {
 
   getHighlightBands(artists) {
     return artists.map((artist, index) =>
-      <Band key={index} last={true} name={artist.name} type={artist.type} />
+      <Bands key={index} last={true} name={artist.name} type={artist.type} />
     )
   }
 
   getSimilarBands(artists) {
     return artists.map((artist, index) =>
-      <Band key={index} last={true} name={artist.name} type={artist.type} />
+      <Bands key={index} last={true} name={artist.name} type={artist.type} />
     )
   }
 

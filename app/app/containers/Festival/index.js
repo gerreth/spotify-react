@@ -8,7 +8,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { playBand } from '../../services'
-import Band from 'components/Band'
+import Bands from 'components/Bands'
 import FestivalHeader from 'components/FestivalHeader'
 
 import {
@@ -35,7 +35,8 @@ class Festival extends React.Component {
     } = this.props
 
     const bands = festival.artists && festival.artists.map((artist, index) =>
-      <Band key={index} last={index !== festival.artists.length-1} name={artist.name} type={artist.type} />
+      <Bands last={index !== festival.artists.length-1} name={artist.name} type={artist.type} />
+      // <Band key={index} last={index !== festival.artists.length-1} name={artist.name} type={artist.type} />
     )
 
     return (
@@ -53,7 +54,7 @@ Festival.propTypes = {
   festival: PropTypes.shape({
     artists: PropTypes.array,
     date: PropTypes.object,
-    location: PropTypes.string,
+    location: PropTypes.object,
     name: PropTypes.string,
   }),
   level: PropTypes.number,

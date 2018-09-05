@@ -32,7 +32,7 @@ const spotifyTopBands = () =>
 const spotifyToken = () =>
   createSelector(selectSpotifyCallbackDomain, substate => substate.getIn(['spotify','token']));
 
-const songkickFestival = () =>
+const songkickFestivals = () =>
   createSelector(selectSpotifyCallbackDomain, substate => substate.getIn(['songkick','festivals']));
 
 
@@ -40,7 +40,7 @@ export default makeSelectSpotifyCallback;
 export {
   loading,
   selectSpotifyCallbackDomain,
-  songkickFestival,
+  songkickFestivals,
   spotifySimilarBands,
   spotifyToken,
   spotifyTopBands

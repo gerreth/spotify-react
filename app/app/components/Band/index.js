@@ -7,8 +7,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 // Styles
-import { theme } from '../../theme/index';
-
 import './style.css'
 
 const Band = (props) => {
@@ -19,7 +17,6 @@ const Band = (props) => {
   } = props
 
   const seperator = last ? ', ' : ''
-  console.log(theme)
 
   return (
     <React.Fragment>
@@ -30,7 +27,7 @@ const Band = (props) => {
 
 export default Band
 
-// /* eslint-disable react/prefer-stateless-function */
+/* eslint-disable react/prefer-stateless-function */
 // export default class Band extends React.Component {
 //   render() {
 //     const {
