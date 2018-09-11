@@ -34,17 +34,17 @@ const FestivalBands = styled.div`
   }
 `;
 
-const AnyReactComponent = ({ text }) =>                 <div
-                  style={{
-                    background: '#fff',
-                    border: 'solid #FEE837 4px',
-                    borderRadius: '20px',
-                    display: 'inline-block',
-                    height: '40px',
-                    width: '40px',
-                    textAlign: 'center',
-                  }}
-                ></div>;
+const AnyReactComponent = ({ text }) => (<div
+  style={{
+    background: '#fff',
+    border: 'solid #FEE837 4px',
+    borderRadius: '20px',
+    display: 'inline-block',
+    height: '40px',
+    width: '40px',
+    textAlign: 'center',
+  }}
+></div>);
 
 /* eslint-disable react/prefer-stateless-function */
 class FestivalDetails extends React.Component {
